@@ -1,4 +1,6 @@
 from flask import jsonify, url_for
+import jwt
+import datetime
 
 class APIException(Exception):
     status_code = 400
@@ -14,6 +16,22 @@ class APIException(Exception):
         rv = dict(self.payload or ())
         rv['message'] = self.message
         return rv
+def generate_token(user_id):
+    payload = {
+        'user_id': user_id,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+    }
+    token = jwt.encode(payload, 'tu_clave_secreta', algorithm='HS256')
+    return token
+
+def verify_token(token):
+    try:
+        payload = jwt.decode(token, 'tu_clave_secreta', algorithms=['HS256'])
+        return payload
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None
 
 def has_no_empty_params(rule):
     defaults = rule.defaults if rule.defaults is not None else ()

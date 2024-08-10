@@ -1,19 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
 
-export const Navbar = () => {
-	return (
-		<nav className="navbar navbar-light bg-light">
-			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-				</Link>
-				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
-			</div>
-		</nav>
-	);
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Context } from '../store/appContext';
+
+const Navbar = () => {
+    const { actions } = useContext(Context);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        actions.logout();
+        navigate('/login');
+    };
+
+    return (
+        <nav>
+            <button onClick={handleLogout}>Logout</button>
+        </nav>
+    );
 };
+
+export default Navbar;
+
