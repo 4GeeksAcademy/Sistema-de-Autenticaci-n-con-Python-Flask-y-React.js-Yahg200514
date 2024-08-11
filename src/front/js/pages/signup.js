@@ -10,7 +10,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
-        const response = await fetch('/api/signup', {
+        const response = await fetch(process.env.BACKEND_URL + "/api/signup", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,29 +24,29 @@ const Signup = () => {
         }  
     };
 
-    <form onSubmit={handleSubmit}>
-    {error && <p style={{ color: 'red' }}>{error}</p>}  {/* Muestra el mensaje de error si existe */}
-    <input 
-        type="email" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
-        placeholder="Email" 
-        required 
-    />
-    <input 
-        type="password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-        placeholder="Password" 
-        required 
-    />
-    <button type="submit">Signup</button>
-</form>
-
+    // Asegúrate de que el componente retorne el formulario y cualquier otro contenido necesario.
+    return (
+        <form onSubmit={handleSubmit}>
+            {error && <p style={{ color: 'red' }}>{error}</p>}  {/* Muestra el mensaje de error si existe */}
+            <input 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                placeholder="Email" 
+                required 
+            />
+            <input 
+                type="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                placeholder="Password" 
+                required 
+            />
+            <button type="submit">Signup</button>
+        </form>
+    );
 };
 
 export default Signup;
-
-
 
 

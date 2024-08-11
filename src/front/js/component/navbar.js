@@ -9,12 +9,11 @@ const Navbar = () => {
 
     const handleLogout = () => {
         actions.logout();
-        navigate('/login');
     };
 
     return (
         <nav>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout}>Cerrar Sesion</button>
         </nav>
     );
 };

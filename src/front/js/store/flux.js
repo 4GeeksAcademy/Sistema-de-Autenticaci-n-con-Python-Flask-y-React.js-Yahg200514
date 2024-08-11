@@ -79,6 +79,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				sessionStorage.removeItem("token");
 				setStore({ token: null }); // Limpia el token del estado global
+				navigate('/login');
 			},
 			// Function to sync the token from sessionStorage to the store when the app loads
 			syncTokenFromSessionStorage: () => {
